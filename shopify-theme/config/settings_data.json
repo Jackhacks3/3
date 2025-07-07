@@ -1,0 +1,92 @@
+{
+  "current": {
+    "primary_color": "#3b82f6",
+    "secondary_color": "#06b6d4", 
+    "accent_color": "#10b981",
+    "text_color": "#1f2937",
+    "background_color": "#ffffff",
+    "heading_font": "assistant_n4",
+    "body_font": "assistant_n4",
+    "base_font_size": 16,
+    "container_width": 1200,
+    "button_style": "rounded",
+    "cart_type": "modal",
+    "enable_cart_notes": true,
+    "enable_product_reviews": false,
+    "enable_product_zoom": true,
+    "enable_checkout_logo": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_text": "Translation Earbuds",
+          "menu": "main-menu",
+          "enable_search": true,
+          "background_color": "#ffffff",
+          "text_color": "#1f2937",
+          "padding_top": 15,
+          "padding_bottom": 15
+        }
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "heading": "Revolutionary AI Translation Earbuds",
+          "description": "Break language barriers instantly with real-time translation in 163 languages. Experience crystal-clear communication with 98% accuracy and lightning-fast 0.5s response time.",
+          "button_primary_text": "Shop Now - $99.99",
+          "button_secondary_text": "View Specifications",
+          "show_features": true,
+          "show_trust_indicators": true,
+          "gradient_color_1": "#3b82f6",
+          "gradient_color_2": "#06b6d4",
+          "text_color": "#ffffff",
+          "text_alignment": "center",
+          "padding_top": 80,
+          "padding_bottom": 80
+        }
+      },
+      "product-showcase": {
+        "type": "product-showcase",
+        "settings": {
+          "product_title": "AI Translation Earbuds",
+          "product_price": 99.99,
+          "product_description": "Experience seamless communication with our revolutionary AI translation earbuds. Perfect for travel, business, and connecting with people worldwide.",
+          "show_trust_badges": true,
+          "background_color": "#f8fafc",
+          "padding_top": 60,
+          "padding_bottom": 60
+        }
+      },
+      "specifications": {
+        "type": "specifications",
+        "settings": {
+          "heading": "Technical Specifications",
+          "description": "Discover the powerful technology behind our AI translation earbuds with industry-leading specifications.",
+          "background_color": "#ffffff",
+          "text_color": "#1f2937",
+          "text_alignment": "center",
+          "padding_top": 60,
+          "padding_bottom": 60
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "company_name": "Translation Earbuds",
+          "company_description": "Breaking language barriers with innovative AI translation technology.",
+          "footer_menu": "footer",
+          "email": "support@translationearbuds.com",
+          "phone": "+1 (555) 123-4567",
+          "address": "123 Innovation Drive, Tech City, TC 12345",
+          "show_social_links": true,
+          "show_newsletter": true,
+          "show_payment_icons": true,
+          "background_color": "#1f2937",
+          "text_color": "#ffffff",
+          "padding_top": 60,
+          "padding_bottom": 30
+        }
+      }
+    }
+  }
+} 

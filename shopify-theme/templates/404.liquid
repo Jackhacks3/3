@@ -1,0 +1,73 @@
+{% comment %}
+  Translation Earbud Store - 404 Error Page
+{% endcomment %}
+
+<div class="container section">
+  <div class="error-404">
+    <div class="error-content">
+      <h1 class="error-title">404</h1>
+      <h2 class="error-subtitle">{{ 'general.404.title' | t }}</h2>
+      <p class="error-description">{{ 'general.404.subtext' | t }}</p>
+      
+      <div class="error-actions">
+        <a href="{{ routes.root_url }}" class="btn btn-primary">
+          Return Home
+        </a>
+        <a href="{{ routes.collections_url }}" class="btn btn-secondary">
+          Browse Products
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .error-404 {
+    text-align: center;
+    padding: 4rem 0;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .error-title {
+    font-size: 8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .error-subtitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .error-description {
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .error-title {
+      font-size: 4rem;
+    }
+    
+    .error-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style> 

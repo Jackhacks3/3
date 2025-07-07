@@ -18,57 +18,18 @@
   <div class="container">
     <div class="product-grid">
       
-      <!-- Product Images Gallery -->
-      <div class="product-image-gallery">
-        {% if section.settings.product_image_1 != blank %}
-          <div class="main-product-image">
-            <img src="{{ section.settings.product_image_1 | img_url: '800x' }}" 
-                 srcset="{{ section.settings.product_image_1 | img_url: '400x' }} 400w,
-                         {{ section.settings.product_image_1 | img_url: '600x' }} 600w,
-                         {{ section.settings.product_image_1 | img_url: '800x' }} 800w"
-                 sizes="(max-width: 768px) 100vw, 50vw"
-                 alt="{{ section.settings.product_title | default: 'AI Translation Earbuds' | escape }}"
-                 loading="lazy"
-                 id="main-product-image">
-          </div>
-
-          <!-- Thumbnail Gallery -->
-          {% if section.settings.product_image_2 != blank or section.settings.product_image_3 != blank or section.settings.product_image_4 != blank %}
-            <div class="product-thumbnails">
-              <button class="thumbnail active" onclick="changeMainImage('{{ section.settings.product_image_1 | img_url: '800x' }}', this)">
-                <img src="{{ section.settings.product_image_1 | img_url: '100x' }}" alt="Product view 1">
-              </button>
-              
-              {% if section.settings.product_image_2 != blank %}
-                <button class="thumbnail" onclick="changeMainImage('{{ section.settings.product_image_2 | img_url: '800x' }}', this)">
-                  <img src="{{ section.settings.product_image_2 | img_url: '100x' }}" alt="Product view 2">
-                </button>
-              {% endif %}
-              
-              {% if section.settings.product_image_3 != blank %}
-                <button class="thumbnail" onclick="changeMainImage('{{ section.settings.product_image_3 | img_url: '800x' }}', this)">
-                  <img src="{{ section.settings.product_image_3 | img_url: '100x' }}" alt="Product view 3">
-                </button>
-              {% endif %}
-              
-              {% if section.settings.product_image_4 != blank %}
-                <button class="thumbnail" onclick="changeMainImage('{{ section.settings.product_image_4 | img_url: '800x' }}', this)">
-                  <img src="{{ section.settings.product_image_4 | img_url: '100x' }}" alt="Product view 4">
-                </button>
-              {% endif %}
-            </div>
-          {% endif %}
-
-          <!-- Product Badge -->
-          {% if section.settings.show_product_badge %}
-            <div class="product-badge">
-              {{ section.settings.product_badge_text | default: 'New' }}
-            </div>
-          {% endif %}
+      <!-- Product Image -->
+      <div class="product-image">
+        {% if section.settings.product_image != blank %}
+          <img src="{{ section.settings.product_image | img_url: '600x' }}" 
+               alt="{{ section.settings.product_title | default: 'AI Translation Earbuds' | escape }}"
+               loading="lazy"
+               width="600"
+               height="400">
         {% else %}
           <div class="placeholder-image">
             <span>🎧</span>
-            <p>Product Images</p>
+            <p>Product Image</p>
           </div>
         {% endif %}
       </div>
@@ -164,17 +125,11 @@
     align-items: center;
   }
 
-  .product-image-gallery {
+  .product-image {
     text-align: center;
-    position: relative;
   }
 
-  .main-product-image {
-    margin-bottom: 1rem;
-    position: relative;
-  }
-
-  .main-product-image img {
+  .product-image img {
     max-width: 100%;
     height: auto;
     border-radius: 16px;
@@ -182,55 +137,8 @@
     transition: transform 0.3s ease;
   }
 
-  .main-product-image img:hover {
-    transform: scale(1.02);
-  }
-
-  .product-thumbnails {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .thumbnail {
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 0;
-    background: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-  }
-
-  .thumbnail:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-  }
-
-  .thumbnail.active {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-  }
-
-  .thumbnail img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    display: block;
-  }
-
-  .product-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    z-index: 2;
+  .product-image img:hover {
+    transform: scale(1.05);
   }
 
   .placeholder-image {
@@ -413,28 +321,8 @@
     .trust-badges {
       justify-content: center;
     }
-
-    .thumbnail img {
-      width: 60px;
-      height: 60px;
-    }
   }
 </style>
-
-<script>
-  function changeMainImage(imageSrc, thumbnailElement) {
-    // Update main image
-    const mainImage = document.getElementById('main-product-image');
-    if (mainImage) {
-      mainImage.src = imageSrc;
-    }
-    
-    // Update active thumbnail
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    thumbnails.forEach(thumb => thumb.classList.remove('active'));
-    thumbnailElement.classList.add('active');
-  }
-</script>
 
 {% schema %}
 {
@@ -464,35 +352,8 @@
     },
     {
       "type": "image_picker",
-      "id": "product_image_1",
-      "label": "Main product image"
-    },
-    {
-      "type": "image_picker",
-      "id": "product_image_2",
-      "label": "Product image 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "product_image_3",
-      "label": "Product image 3"
-    },
-    {
-      "type": "image_picker",
-      "id": "product_image_4",
-      "label": "Product image 4"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_product_badge",
-      "label": "Show product badge",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "product_badge_text",
-      "label": "Product badge text",
-      "default": "New"
+      "id": "product_image",
+      "label": "Product image"
     },
     {
       "type": "header",

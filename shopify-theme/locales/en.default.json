@@ -1,0 +1,143 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you requested does not exist."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search products...",
+      "no_results": "No results found",
+      "results_for": "Results for \"{{ terms }}\""
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "checkout": "Checkout",
+      "continue_shopping": "Continue Shopping",
+      "add_to_cart": "Add to Cart",
+      "quantity": "Quantity",
+      "remove": "Remove",
+      "update": "Update Cart"
+    },
+    "forms": {
+      "required": "Required",
+      "email": "Email",
+      "name": "Name",
+      "message": "Message",
+      "submit": "Submit"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "loading": "Loading",
+    "of": "of"
+  },
+  "products": {
+    "product": {
+      "price": "Price",
+      "sale_price": "Sale price",
+      "regular_price": "Regular price",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "add_to_cart": "Add to cart",
+      "description": "Description",
+      "specifications": "Specifications",
+      "features": "Features",
+      "reviews": "Reviews",
+      "shipping": "Shipping",
+      "returns": "Returns"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gift Card",
+      "subtext": "Here's your gift card!",
+      "gift_card_code": "Gift card code",
+      "shop_link": "Start shopping",
+      "remaining_html": "{{ balance }} left",
+      "add_to_apple_wallet": "Add to Apple Wallet"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y"
+  },
+  "newsletter": {
+    "title": "Stay Updated",
+    "description": "Get the latest updates on new features and special offers",
+    "email_placeholder": "Enter your email",
+    "submit": "Subscribe",
+    "success": "Thank you for subscribing!",
+    "error": "Please enter a valid email address"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "Twitter", 
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "quick_links": "Quick Links",
+    "contact": "Contact",
+    "follow_us": "Follow Us",
+    "copyright": "All rights reserved"
+  },
+  "header": {
+    "menu": "Menu",
+    "cart": "Cart",
+    "search": "Search",
+    "account": "Account"
+  },
+  "customer": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgot_password": "Forgot your password?",
+      "create_account": "Create account"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First name",
+      "last_name": "Last name", 
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create"
+    },
+    "account": {
+      "title": "Account",
+      "details": "Account Details",
+      "orders": "Order History",
+      "addresses": "Addresses",
+      "logout": "Logout"
+    }
+  },
+  "sections": {
+    "hero": {
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More"
+    },
+    "featured_products": {
+      "title": "Featured Products"
+    },
+    "testimonials": {
+      "title": "What Our Customers Say"
+    }
+  }
+} 

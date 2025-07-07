@@ -1,0 +1,544 @@
+<section class="testimonials" style="
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  background-color: {{ section.settings.background_color }};
+  color: {{ section.settings.text_color }};
+  text-align: {{ section.settings.text_alignment }};
+">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="testimonials-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    
+    {% if section.settings.description != blank %}
+      <div class="testimonials-description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_overall_rating %}
+      <div class="overall-rating">
+        <div class="rating-stars">
+          {% for i in (1..5) %}
+            <span class="star {% if i <= section.settings.overall_rating_value %}filled{% endif %}">★</span>
+          {% endfor %}
+        </div>
+        <div class="rating-text">
+          <span class="rating-number">{{ section.settings.overall_rating_value }}.0</span>
+          <span class="rating-count">Based on {{ section.settings.total_reviews }} reviews</span>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="testimonials-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'testimonial' %}
+            <div class="testimonial-card" {{ block.shopify_attributes }}>
+              <div class="testimonial-header">
+                {% if block.settings.customer_image %}
+                  <div class="customer-image">
+                    <img 
+                      src="{{ block.settings.customer_image | img_url: '80x80' }}"
+                      alt="{{ block.settings.customer_name | escape }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {% endif %}
+                
+                <div class="customer-info">
+                  {% if block.settings.customer_name != blank %}
+                    <h4 class="customer-name">{{ block.settings.customer_name }}</h4>
+                  {% endif %}
+                  
+                  {% if block.settings.customer_location != blank %}
+                    <span class="customer-location">{{ block.settings.customer_location }}</span>
+                  {% endif %}
+                  
+                  {% if block.settings.verified_purchase %}
+                    <span class="verified-badge">✓ Verified Purchase</span>
+                  {% endif %}
+                </div>
+                
+                <div class="testimonial-rating">
+                  {% for i in (1..5) %}
+                    <span class="star {% if i <= block.settings.rating %}filled{% endif %}">★</span>
+                  {% endfor %}
+                </div>
+              </div>
+              
+              {% if block.settings.review_title != blank %}
+                <h5 class="review-title">{{ block.settings.review_title }}</h5>
+              {% endif %}
+              
+              {% if block.settings.review_text != blank %}
+                <div class="review-text">
+                  {{ block.settings.review_text }}
+                </div>
+              {% endif %}
+              
+              {% if block.settings.review_date != blank %}
+                <div class="review-date">{{ block.settings.review_date }}</div>
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_write_review_button %}
+      <div class="write-review-section">
+        <a href="{{ section.settings.write_review_url | default: '#' }}" class="btn btn-primary write-review-btn">
+          {{ section.settings.write_review_text | default: 'Write a Review' }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    position: relative;
+  }
+
+  .testimonials-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, {{ section.settings.heading_color_1 | default: '#3b82f6' }}, {{ section.settings.heading_color_2 | default: '#06b6d4' }});
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .testimonials-description {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .overall-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .rating-stars {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .star {
+    color: #ddd;
+    transition: color 0.3s ease;
+  }
+
+  .star.filled {
+    color: #ffd700;
+  }
+
+  .rating-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: 0.5rem;
+  }
+
+  .rating-count {
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .testimonial-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .customer-image {
+    flex-shrink: 0;
+  }
+
+  .customer-image img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .customer-info {
+    flex: 1;
+  }
+
+  .customer-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .customer-location {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .verified-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .testimonial-rating {
+    font-size: 1.2rem;
+  }
+
+  .review-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: inherit;
+  }
+
+  .review-text {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-style: italic;
+    opacity: 0.9;
+  }
+
+  .review-date {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    text-align: right;
+  }
+
+  .write-review-section {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .write-review-btn {
+    background: linear-gradient(135deg, {{ section.settings.button_color_1 | default: '#10b981' }}, {{ section.settings.button_color_2 | default: '#06b6d4' }});
+    padding: 1rem 2.5rem;
+    font-weight: 600;
+    border-radius: 50px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testimonial-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .customer-info {
+      text-align: center;
+    }
+
+    .review-date {
+      text-align: center;
+    }
+
+    .overall-rating {
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Testimonials",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Real reviews from customers who've experienced the power of instant translation</p>"
+    },
+    {
+      "type": "header",
+      "content": "Overall Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overall_rating",
+      "label": "Show overall rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "overall_rating_value",
+      "label": "Overall rating (stars)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "number",
+      "id": "total_reviews",
+      "label": "Total number of reviews",
+      "default": 1247
+    },
+    {
+      "type": "header",
+      "content": "Write Review Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_write_review_button",
+      "label": "Show write review button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "write_review_text",
+      "label": "Write review button text",
+      "default": "Write a Review"
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Write review URL"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_1",
+      "label": "Heading gradient color 1",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_2",
+      "label": "Heading gradient color 2",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "color",
+      "id": "button_color_1",
+      "label": "Button gradient color 1",
+      "default": "#10b981"
+    },
+    {
+      "type": "color",
+      "id": "button_color_2",
+      "label": "Button gradient color 2",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1f2937"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Customer Information"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer name",
+          "default": "Sarah Johnson"
+        },
+        {
+          "type": "text",
+          "id": "customer_location",
+          "label": "Customer location",
+          "default": "New York, USA"
+        },
+        {
+          "type": "image_picker",
+          "id": "customer_image",
+          "label": "Customer photo"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified_purchase",
+          "label": "Verified purchase",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Review Content"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review title",
+          "default": "Game changer for international travel!"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "These earbuds completely transformed my business trip to Japan. The real-time translation was incredibly accurate and the 0.5s response time made conversations flow naturally. Battery lasted the entire 12-hour flight plus meetings the next day. Absolutely worth every penny!"
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Review date",
+          "default": "December 15, 2024"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Sarah Johnson",
+            "customer_location": "New York, USA",
+            "rating": 5,
+            "review_title": "Game changer for international travel!",
+            "review_text": "These earbuds completely transformed my business trip to Japan. The real-time translation was incredibly accurate and the 0.5s response time made conversations flow naturally. Battery lasted the entire 12-hour flight plus meetings the next day. Absolutely worth every penny!",
+            "review_date": "December 15, 2024"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Miguel Rodriguez",
+            "customer_location": "Barcelona, Spain",
+            "rating": 5,
+            "review_title": "Perfect for my multilingual family",
+            "review_text": "My family speaks Spanish, English, and Mandarin. These earbuds let my grandmother finally join our conversations without language barriers. The accuracy is amazing - even picks up regional dialects correctly. Quality is premium and they're comfortable for hours.",
+            "review_date": "December 10, 2024"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Emma Chen",
+            "customer_location": "Toronto, Canada",
+            "rating": 5,
+            "review_title": "Exceeded all expectations",
+            "review_text": "I was skeptical about the 98% accuracy claim, but these actually deliver. Used them during a conference in Germany and could follow every presentation perfectly. The battery life is incredible - used them for 8 hours straight and still had charge left.",
+            "review_date": "December 8, 2024"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

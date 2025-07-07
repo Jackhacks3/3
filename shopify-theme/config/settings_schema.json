@@ -1,0 +1,197 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Translation Earbud Store",
+    "theme_version": "1.0.0",
+    "theme_author": "Custom Theme Developer",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary color",
+        "default": "#3b82f6",
+        "info": "Used for buttons, links, and accents"
+      },
+      {
+        "type": "color",
+        "id": "secondary_color",
+        "label": "Secondary color",
+        "default": "#06b6d4",
+        "info": "Used for gradients and secondary elements"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Accent color",
+        "default": "#10b981",
+        "info": "Used for highlights and success states"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#1f2937",
+        "info": "Main text color"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#ffffff",
+        "info": "Main background color"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading font",
+        "default": "assistant_n4",
+        "info": "Font used for headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Body font",
+        "default": "assistant_n4",
+        "info": "Font used for body text"
+      },
+      {
+        "type": "range",
+        "id": "base_font_size",
+        "label": "Base font size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16,
+        "info": "Base font size for body text"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "container_width",
+        "label": "Container width",
+        "min": 1000,
+        "max": 1400,
+        "step": 50,
+        "unit": "px",
+        "default": 1200,
+        "info": "Maximum width of content containers"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "options": [
+          {"value": "rounded", "label": "Rounded"},
+          {"value": "square", "label": "Square"},
+          {"value": "pill", "label": "Pill"}
+        ],
+        "default": "rounded",
+        "info": "Global button border radius style"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Media Links"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_link",
+        "label": "Twitter"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "social_linkedin_link",
+        "label": "LinkedIn"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {"value": "modal", "label": "Modal"},
+          {"value": "drawer", "label": "Drawer"},
+          {"value": "page", "label": "Page"}
+        ],
+        "default": "modal",
+        "info": "How the cart should be displayed"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_notes",
+        "label": "Enable cart notes",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_product_reviews",
+        "label": "Enable product reviews",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_product_zoom",
+        "label": "Enable product image zoom",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Checkout Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_checkout_logo",
+        "label": "Show logo on checkout",
+        "default": true
+      }
+    ]
+  }
+] 

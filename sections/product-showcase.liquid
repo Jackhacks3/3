@@ -1,0 +1,409 @@
+{% comment %}
+  Translation Earbud Store - Product Showcase Section
+  Features: Product Image, Pricing, Features List, Add to Cart
+{% endcomment %}
+
+{% assign section_id = section.id %}
+{% assign product_price = section.settings.product_price | default: 99.99 %}
+
+<section class="product-showcase section section-{{ section.type }}" 
+         id="product"
+         data-section-id="{{ section_id }}"
+         style="
+           background-color: {{ section.settings.background_color }};
+           padding-top: {{ section.settings.padding_top }}px;
+           padding-bottom: {{ section.settings.padding_bottom }}px;
+         ">
+  
+  <div class="container">
+    <div class="product-grid">
+      
+      <!-- Product Image -->
+      <div class="product-image">
+        {% if section.settings.product_image != blank %}
+          <img src="{{ section.settings.product_image | img_url: '600x' }}" 
+               alt="{{ section.settings.product_title | default: 'AI Translation Earbuds' | escape }}"
+               loading="lazy"
+               width="600"
+               height="400">
+        {% else %}
+          <div class="placeholder-image">
+            <span>🎧</span>
+            <p>Product Image</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Product Details -->
+      <div class="product-details">
+        
+        <!-- Product Title -->
+        <h2 class="product-title">
+          {{ section.settings.product_title | default: 'AI Translation Earbuds' }}
+        </h2>
+
+        <!-- Product Price -->
+        <div class="product-price">
+          ${{ product_price | round: 2 }}
+        </div>
+
+        <!-- Product Description -->
+        {% if section.settings.product_description != blank %}
+          <div class="product-description">
+            {{ section.settings.product_description }}
+          </div>
+        {% endif %}
+
+        <!-- Product Features -->
+        <ul class="product-features">
+          <li>Real-time translation in 163 languages</li>
+          <li>98% translation accuracy</li>
+          <li>0.5s ultra-fast response time</li>
+          <li>50H total battery life</li>
+          <li>8H continuous playback per charge</li>
+          <li>Fast Type-C charging</li>
+          <li>8 offline languages included</li>
+          <li>One year subscription included</li>
+        </ul>
+
+        <!-- Quantity and Add to Cart -->
+        <div class="product-actions">
+          <div class="quantity-selector">
+            <label for="quantity" class="quantity-label">Quantity:</label>
+            <div class="quantity-controls">
+              <button class="quantity-btn quantity-decrease" aria-label="Decrease quantity">-</button>
+              <input type="number" 
+                     id="quantity" 
+                     class="quantity-input" 
+                     value="1" 
+                     min="1" 
+                     max="10"
+                     aria-label="Quantity">
+              <button class="quantity-btn quantity-increase" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary add-to-cart" 
+                  data-price="{{ product_price }}"
+                  data-title="{{ section.settings.product_title | default: 'AI Translation Earbuds' }}"
+                  aria-label="Add to cart">
+            Add to Cart - ${{ product_price | round: 2 }}
+          </button>
+        </div>
+
+        <!-- Trust Badges -->
+        {% if section.settings.show_trust_badges %}
+          <div class="trust-badges">
+            <div class="badge">
+              <span class="badge-icon">🚚</span>
+              <span>Free Shipping</span>
+            </div>
+            <div class="badge">
+              <span class="badge-icon">🛡️</span>
+              <span>1 Year Warranty</span>
+            </div>
+            <div class="badge">
+              <span class="badge-icon">💰</span>
+              <span>30-Day Returns</span>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-showcase {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .product-image {
+    text-align: center;
+  }
+
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .product-image img:hover {
+    transform: scale(1.05);
+  }
+
+  .placeholder-image {
+    background: #f3f4f6;
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #6b7280;
+  }
+
+  .placeholder-image span {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .product-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .product-price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    margin: 1.5rem 0;
+  }
+
+  .product-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4b5563;
+    margin-bottom: 2rem;
+  }
+
+  .product-features {
+    list-style: none;
+    margin: 2rem 0;
+    padding: 0;
+  }
+
+  .product-features li {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    font-weight: 500;
+  }
+
+  .product-features li:before {
+    content: '✓';
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-weight: bold;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .product-actions {
+    margin: 2rem 0;
+  }
+
+  .quantity-selector {
+    margin-bottom: 1.5rem;
+  }
+
+  .quantity-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #374151;
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+  }
+
+  .quantity-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .quantity-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05);
+  }
+
+  .quantity-input {
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .quantity-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  .add-to-cart {
+    width: 100%;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+  }
+
+  .add-to-cart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .badge-icon {
+    font-size: 1.2rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .trust-badges {
+      justify-content: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Showcase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Information"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product title",
+      "default": "AI Translation Earbuds"
+    },
+    {
+      "type": "number",
+      "id": "product_price",
+      "label": "Product price",
+      "default": 99.99
+    },
+    {
+      "type": "textarea",
+      "id": "product_description",
+      "label": "Product description",
+      "default": "Experience seamless communication with our revolutionary AI translation earbuds. Perfect for travel, business, and connecting with people worldwide."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8fafc"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Showcase"
+    }
+  ]
+}
+{% endschema %} 

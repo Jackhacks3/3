@@ -81,7 +81,7 @@
         {% endif %}
       </div>
 
-      <!-- Trust Indicators -->
+      <!-- Trust Indicators with Urgency -->
       {% if section.settings.show_trust_indicators %}
         <div class="hero-trust">
           <div class="trust-item">
@@ -95,6 +95,56 @@
           <div class="trust-item">
             <span class="trust-icon">✓</span>
             <span>30-Day Money Back</span>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Urgency & Scarcity -->
+      {% if section.settings.show_urgency %}
+        <div class="urgency-banner">
+          {% if section.settings.stock_count > 0 %}
+            <div class="stock-indicator">
+              <span class="stock-icon">⚡</span>
+              <strong>Only {{ section.settings.stock_count }} left in stock!</strong>
+            </div>
+          {% endif %}
+          
+          {% if section.settings.sale_end_date != blank %}
+            <div class="countdown-timer" data-end-date="{{ section.settings.sale_end_date }}">
+              <span class="timer-label">Sale ends in:</span>
+              <div class="timer-display">
+                <span class="timer-unit">
+                  <span class="timer-number" id="days">00</span>
+                  <span class="timer-text">Days</span>
+                </span>
+                <span class="timer-unit">
+                  <span class="timer-number" id="hours">00</span>
+                  <span class="timer-text">Hours</span>
+                </span>
+                <span class="timer-unit">
+                  <span class="timer-number" id="minutes">00</span>
+                  <span class="timer-text">Min</span>
+                </span>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Social Proof -->
+      {% if section.settings.show_social_proof %}
+        <div class="social-proof">
+          <div class="proof-item">
+            <span class="proof-number">{{ section.settings.customers_served | default: '50,000' }}+</span>
+            <span class="proof-text">Happy Customers</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-number">{{ section.settings.countries_shipped | default: '120' }}+</span>
+            <span class="proof-text">Countries Shipped</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-number">{{ section.settings.languages_supported | default: '163' }}</span>
+            <span class="proof-text">Languages</span>
           </div>
         </div>
       {% endif %}
@@ -275,6 +325,111 @@
     }
   }
 
+  /* Urgency & Scarcity Styles */
+  .urgency-banner {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+    text-align: center;
+    animation: pulse 2s infinite;
+  }
+
+  .stock-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .stock-icon {
+    font-size: 1.5rem;
+    animation: flash 1s infinite;
+  }
+
+  .countdown-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .timer-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .timer-display {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .timer-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+    min-width: 60px;
+  }
+
+  .timer-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .timer-text {
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+
+  /* Social Proof Styles */
+  .social-proof {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+  }
+
+  .proof-item {
+    text-align: center;
+  }
+
+  .proof-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .proof-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: 500;
+  }
+
+  /* Animations */
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  @keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .hero-features {
@@ -296,6 +451,24 @@
       flex-direction: column;
       gap: 1rem;
     }
+
+    .social-proof {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .timer-display {
+      gap: 0.5rem;
+    }
+
+    .timer-unit {
+      min-width: 50px;
+      padding: 0.5rem;
+    }
+
+    .timer-number {
+      font-size: 1.2rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -306,8 +479,63 @@
     .feature-item {
       justify-content: center;
     }
+
+    .urgency-banner {
+      padding: 1rem;
+    }
+
+    .stock-indicator {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
   }
 </style>
+
+<script>
+  // Countdown Timer Functionality
+  function initCountdownTimer() {
+    const timerElement = document.querySelector('.countdown-timer');
+    if (!timerElement) return;
+    
+    const endDate = timerElement.getAttribute('data-end-date');
+    if (!endDate) return;
+    
+    const targetDate = new Date(endDate).getTime();
+    
+    function updateTimer() {
+      const now = new Date().getTime();
+      const timeLeft = targetDate - now;
+      
+      if (timeLeft > 0) {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      } else {
+        // Timer expired
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        
+        // Optionally hide the timer or show "Sale Ended" message
+        const stockIndicator = document.querySelector('.stock-indicator');
+        if (stockIndicator) {
+          stockIndicator.innerHTML = '<span class="stock-icon">⏰</span><strong>Sale has ended</strong>';
+        }
+      }
+    }
+    
+    // Update timer immediately and then every minute
+    updateTimer();
+    setInterval(updateTimer, 60000);
+  }
+  
+  // Initialize timer when page loads
+  document.addEventListener('DOMContentLoaded', initCountdownTimer);
+</script>
 
 {% schema %}
 {
@@ -442,6 +670,56 @@
       "step": 10,
       "unit": "px",
       "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Urgency & Scarcity"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency",
+      "label": "Show urgency elements",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "stock_count",
+      "label": "Stock count (for scarcity)",
+      "default": 47
+    },
+    {
+      "type": "text",
+      "id": "sale_end_date",
+      "label": "Sale end date (YYYY-MM-DD HH:MM)",
+      "info": "Format: 2024-12-31 23:59"
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show social proof numbers",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "customers_served",
+      "label": "Customers served",
+      "default": "50,000"
+    },
+    {
+      "type": "text",
+      "id": "countries_shipped",
+      "label": "Countries shipped to",
+      "default": "120"
+    },
+    {
+      "type": "text",
+      "id": "languages_supported",
+      "label": "Languages supported",
+      "default": "163"
     }
   ],
   "presets": [

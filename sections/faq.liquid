@@ -1,0 +1,509 @@
+<section class="faq-section" style="
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  background-color: {{ section.settings.background_color }};
+  color: {{ section.settings.text_color }};
+">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    
+    {% if section.settings.description != blank %}
+      <div class="faq-description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="faq-grid">
+      <div class="faq-list">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'faq_item' %}
+              <div class="faq-item" {{ block.shopify_attributes }}>
+                <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                  <span class="question-text">{{ block.settings.question }}</span>
+                  <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                  <div class="answer-content">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_contact_info %}
+        <div class="faq-contact">
+          <div class="contact-card">
+            <h3>Still have questions?</h3>
+            <p>Our support team is here to help you make the right choice.</p>
+            
+            {% if section.settings.contact_email != blank %}
+              <div class="contact-method">
+                <span class="contact-icon">📧</span>
+                <div>
+                  <strong>Email Support</strong>
+                  <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if section.settings.contact_phone != blank %}
+              <div class="contact-method">
+                <span class="contact-icon">📞</span>
+                <div>
+                  <strong>Phone Support</strong>
+                  <a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if section.settings.support_hours != blank %}
+              <div class="contact-method">
+                <span class="contact-icon">🕒</span>
+                <div>
+                  <strong>Support Hours</strong>
+                  <span>{{ section.settings.support_hours }}</span>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if section.settings.live_chat_url != blank %}
+              <a href="{{ section.settings.live_chat_url }}" class="btn btn-primary contact-btn">
+                💬 Start Live Chat
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    position: relative;
+  }
+
+  .faq-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, {{ section.settings.heading_color_1 | default: '#3b82f6' }}, {{ section.settings.heading_color_2 | default: '#06b6d4' }});
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .faq-description {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    background: none;
+    border: none;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .faq-question:hover {
+    color: {{ section.settings.accent_color | default: '#06b6d4' }};
+  }
+
+  .question-text {
+    flex: 1;
+    margin-right: 1rem;
+  }
+
+  .faq-icon {
+    background: {{ section.settings.accent_color | default: '#06b6d4' }};
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 300px;
+  }
+
+  .answer-content {
+    padding: 0 1.5rem 1.5rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  .faq-contact {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .contact-card {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .contact-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: inherit;
+  }
+
+  .contact-card > p {
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
+
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+
+  .contact-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+  }
+
+  .contact-method strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-method a {
+    color: {{ section.settings.accent_color | default: '#06b6d4' }};
+    text-decoration: none;
+  }
+
+  .contact-method a:hover {
+    text-decoration: underline;
+  }
+
+  .contact-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, {{ section.settings.button_color_1 | default: '#10b981' }}, {{ section.settings.button_color_2 | default: '#06b6d4' }});
+    font-weight: 600;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .faq-question {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    .answer-content {
+      padding: 0 1rem 1rem;
+    }
+
+    .contact-card {
+      padding: 1.5rem;
+    }
+
+    .contact-method {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  function toggleFAQ(button) {
+    const faqItem = button.closest('.faq-item');
+    const isActive = faqItem.classList.contains('active');
+    
+    // Close all other FAQ items
+    document.querySelectorAll('.faq-item.active').forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+        item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      }
+    });
+    
+    // Toggle current item
+    if (isActive) {
+      faqItem.classList.remove('active');
+      button.setAttribute('aria-expanded', 'false');
+    } else {
+      faqItem.classList.add('active');
+      button.setAttribute('aria-expanded', 'true');
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Find answers to common questions about our AI Translation Earbuds</p>"
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_info",
+      "label": "Show contact information",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Support email",
+      "default": "support@translationearbuds.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Support phone",
+      "default": "+1 (555) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "support_hours",
+      "label": "Support hours",
+      "default": "Mon-Fri 9AM-6PM EST"
+    },
+    {
+      "type": "url",
+      "id": "live_chat_url",
+      "label": "Live chat URL"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_1",
+      "label": "Heading gradient color 1",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_2",
+      "label": "Heading gradient color 2",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "color",
+      "id": "button_color_1",
+      "label": "Button gradient color 1",
+      "default": "#10b981"
+    },
+    {
+      "type": "color",
+      "id": "button_color_2",
+      "label": "Button gradient color 2",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1f2937"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How accurate is the real-time translation?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Our AI translation earbuds achieve 98% accuracy across all 163 supported languages. The advanced neural processing ensures context-aware translations that understand nuances, idioms, and technical terminology.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How accurate is the real-time translation?",
+            "answer": "<p>Our AI translation earbuds achieve 98% accuracy across all 163 supported languages. The advanced neural processing ensures context-aware translations that understand nuances, idioms, and technical terminology.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does the battery last?",
+            "answer": "<p>Each earbud provides 8 hours of continuous translation on a single charge. The charging case extends this to 50 hours total, perfect for long trips or extended use.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do I need an internet connection?",
+            "answer": "<p>While online mode provides access to all 163 languages, the earbuds include 8 offline languages (English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese) for use without internet.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's included in the box?",
+            "answer": "<p>You'll receive: 2 translation earbuds, charging case, USB-C cable, 3 sizes of ear tips, quick start guide, and a 1-year premium subscription to our translation service.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there a warranty?",
+            "answer": "<p>Yes! We offer a full 1-year manufacturer warranty covering defects and malfunctions. Plus, you get a 30-day money-back guarantee if you're not completely satisfied.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How fast is the translation response?",
+            "answer": "<p>Our earbuds provide ultra-fast 0.5-second response time, ensuring natural conversation flow without awkward pauses or delays.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

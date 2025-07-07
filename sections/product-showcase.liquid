@@ -145,8 +145,85 @@
               <span class="badge-icon">💰</span>
               <span>30-Day Returns</span>
             </div>
+            <div class="badge">
+              <span class="badge-icon">🔒</span>
+              <span>Secure Checkout</span>
+            </div>
           </div>
         {% endif %}
+
+        <!-- Money-Back Guarantee -->
+        {% if section.settings.show_guarantee %}
+          <div class="guarantee-section">
+            <div class="guarantee-badge">
+              <span class="guarantee-icon">💯</span>
+              <div class="guarantee-text">
+                <strong>{{ section.settings.guarantee_title | default: '30-Day Money-Back Guarantee' }}</strong>
+                <p>{{ section.settings.guarantee_description | default: 'Not satisfied? Return for a full refund within 30 days.' }}</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- As Seen In Section -->
+    {% if section.settings.show_media_mentions %}
+      <div class="media-mentions">
+        <h3 class="mentions-title">{{ section.settings.mentions_title | default: 'As Featured In' }}</h3>
+        <div class="mentions-grid">
+          {% if section.settings.mention_logo_1 %}
+            <div class="mention-item">
+              <img src="{{ section.settings.mention_logo_1 | img_url: '150x' }}" alt="{{ section.settings.mention_name_1 | escape }}" loading="lazy">
+            </div>
+          {% endif %}
+          {% if section.settings.mention_logo_2 %}
+            <div class="mention-item">
+              <img src="{{ section.settings.mention_logo_2 | img_url: '150x' }}" alt="{{ section.settings.mention_name_2 | escape }}" loading="lazy">
+            </div>
+          {% endif %}
+          {% if section.settings.mention_logo_3 %}
+            <div class="mention-item">
+              <img src="{{ section.settings.mention_logo_3 | img_url: '150x' }}" alt="{{ section.settings.mention_name_3 | escape }}" loading="lazy">
+            </div>
+          {% endif %}
+          {% if section.settings.mention_logo_4 %}
+            <div class="mention-item">
+              <img src="{{ section.settings.mention_logo_4 | img_url: '150x' }}" alt="{{ section.settings.mention_name_4 | escape }}" loading="lazy">
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Use Cases Section -->
+    {% if section.settings.show_use_cases %}
+      <div class="use-cases">
+        <h3 class="use-cases-title">{{ section.settings.use_cases_title | default: 'Perfect For Every Situation' }}</h3>
+        <div class="use-cases-grid">
+          <div class="use-case-item">
+            <div class="use-case-icon">✈️</div>
+            <h4>Travel & Tourism</h4>
+            <p>Navigate foreign countries with confidence. Order food, ask for directions, and connect with locals effortlessly.</p>
+          </div>
+          <div class="use-case-item">
+            <div class="use-case-icon">💼</div>
+            <h4>Business Meetings</h4>
+            <p>Break language barriers in international conferences, client meetings, and business negotiations.</p>
+          </div>
+          <div class="use-case-item">
+            <div class="use-case-icon">🎓</div>
+            <h4>Education & Learning</h4>
+            <p>Perfect for language students, international classrooms, and academic research collaborations.</p>
+          </div>
+          <div class="use-case-item">
+            <div class="use-case-icon">👨‍👩‍👧‍👦</div>
+            <h4>Family & Friends</h4>
+            <p>Connect with multilingual family members, help elderly relatives, and include everyone in conversations.</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
       </div>
     </div>
   </div>
@@ -403,6 +480,133 @@
     font-size: 1.2rem;
   }
 
+  /* Guarantee Section */
+  .guarantee-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(34, 197, 94, 0.1));
+    border-radius: 12px;
+    border: 2px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .guarantee-badge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .guarantee-icon {
+    font-size: 3rem;
+    flex-shrink: 0;
+  }
+
+  .guarantee-text strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #059669;
+    margin-bottom: 0.5rem;
+  }
+
+  .guarantee-text p {
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  /* Media Mentions */
+  .media-mentions {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-radius: 16px;
+  }
+
+  .mentions-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .mentions-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .mention-item {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    filter: grayscale(100%);
+  }
+
+  .mention-item:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  .mention-item img {
+    max-height: 60px;
+    width: auto;
+  }
+
+  /* Use Cases */
+  .use-cases {
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .use-cases-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .use-case-item {
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .use-case-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .use-case-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-item h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .use-case-item p {
+    line-height: 1.6;
+    color: #6b7280;
+    margin: 0;
+  }
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .product-grid {
@@ -417,6 +621,29 @@
     .thumbnail img {
       width: 60px;
       height: 60px;
+    }
+
+    .guarantee-badge {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .mentions-grid {
+      gap: 2rem;
+    }
+
+    .mention-item img {
+      max-height: 40px;
+    }
+
+    .use-cases-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .use-case-item {
+      padding: 1.5rem;
     }
   }
 </style>
@@ -503,6 +730,92 @@
       "id": "show_trust_badges",
       "label": "Show trust badges",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show money-back guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_title",
+      "label": "Guarantee title",
+      "default": "30-Day Money-Back Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_description",
+      "label": "Guarantee description",
+      "default": "Not satisfied? Return for a full refund within 30 days."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_media_mentions",
+      "label": "Show media mentions",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "mentions_title",
+      "label": "Media mentions title",
+      "default": "As Featured In"
+    },
+    {
+      "type": "image_picker",
+      "id": "mention_logo_1",
+      "label": "Media mention logo 1"
+    },
+    {
+      "type": "text",
+      "id": "mention_name_1",
+      "label": "Media mention name 1",
+      "default": "TechCrunch"
+    },
+    {
+      "type": "image_picker",
+      "id": "mention_logo_2",
+      "label": "Media mention logo 2"
+    },
+    {
+      "type": "text",
+      "id": "mention_name_2",
+      "label": "Media mention name 2",
+      "default": "Forbes"
+    },
+    {
+      "type": "image_picker",
+      "id": "mention_logo_3",
+      "label": "Media mention logo 3"
+    },
+    {
+      "type": "text",
+      "id": "mention_name_3",
+      "label": "Media mention name 3",
+      "default": "CNN"
+    },
+    {
+      "type": "image_picker",
+      "id": "mention_logo_4",
+      "label": "Media mention logo 4"
+    },
+    {
+      "type": "text",
+      "id": "mention_name_4",
+      "label": "Media mention name 4",
+      "default": "BBC"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_use_cases",
+      "label": "Show use cases",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "use_cases_title",
+      "label": "Use cases title",
+      "default": "Perfect For Every Situation"
     },
     {
       "type": "header",
